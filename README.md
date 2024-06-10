@@ -8,3 +8,4 @@ This is my new RC.  There is no video yet.
 
 
 # nvim
+# nvim x
