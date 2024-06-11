@@ -26,7 +26,7 @@ return {
                     floats = "dark",   -- style for floating windows
                 },
             })
-            -- vim.cmd("colorscheme tokyonight")
+            vim.cmd("colorscheme tokyonight")
         end
     },
     {
@@ -47,7 +47,7 @@ return {
                     palette = {},
                     theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
                 },
-                overrides = function(colors) -- add/modify highlights
+                overrides = function() -- add/modify highlights
                     return {}
                 end,
                 theme = "wave", -- Load "wave" theme when 'background' option is not set
@@ -56,11 +56,9 @@ return {
                     light = "lotus"
                 }
             })
-            vim.cmd("colorscheme kanagawa")
+            -- vim.cmd("colorscheme kanagawa")
         end
     },
-
-
     {
         "rose-pine/neovim",
         name = "rose-pine",
@@ -68,9 +66,7 @@ return {
             require('rose-pine').setup({
                 disable_background = true,
             })
-
             -- vim.cmd("colorscheme rose-pine")
-
             ColorMyPencils()
         end
     },

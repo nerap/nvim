@@ -28,7 +28,14 @@ return {
             ensure_installed = {
                 "lua_ls",
                 "rust_analyzer",
+                "tailwindcss",
                 "tsserver",
+                "eslint",
+                "jsonls",
+                "tflint",
+                "dockerls",
+                "bashls",
+                "marksman",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
