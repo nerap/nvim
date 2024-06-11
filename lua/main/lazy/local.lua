@@ -1,4 +1,3 @@
-
 local local_plugins = {
     {
         "harpoon",
@@ -18,7 +17,8 @@ local local_plugins = {
         end
     },
     {
-        "vim-apm", dir = "~/personal/vim-apm",
+        "vim-apm",
+        dir = "~/personal/vim-apm",
         config = function()
             --[[
             local apm = require("vim-apm")
@@ -28,7 +28,27 @@ local local_plugins = {
             --]]
         end
     },
+    {
+        "windwp/nvim-ts-autotag",
+        dependencies = "nvim-treesitter/nvim-treesitter",
+        config = function()
+            require("nvim-ts-autotag").setup({})
+        end,
+        lazy = true,
+        event = "VeryLazy",
+    },
+    {
+        "stevearc/oil.nvim",
+        opts = {},
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        config = function()
+            require("oil").setup({
+                default_file_explorer = true,
+                delete_to_trash = true,
+                skip_confirm_for_simple_edits = true,
+            })
+        end,
+    },
 }
 
 return local_plugins
-
