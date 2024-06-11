@@ -15,7 +15,7 @@ require("main.lazy_init")
 -- DO.not
 
 local augroup = vim.api.nvim_create_augroup
-local main = augroup('ThePrimeagen', {})
+local main = augroup('Main', {})
 
 local autocmd = vim.api.nvim_create_autocmd
 local yank_group = augroup('HighlightYank', {})
