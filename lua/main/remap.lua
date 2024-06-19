@@ -6,7 +6,6 @@ vim.g.mapleader = " "
 
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
-
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
@@ -63,8 +62,8 @@ vim.keymap.set("n", "<C-S-Right>", ":vertical resize +2<CR>", { desc = "Resize V
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- Split
-vim.keymap.set("n", "<leader>vs", "<cmd>:vsplit<CR>")
-vim.keymap.set("n", "<leader>hs", "<cmd>:split<CR>")
+vim.keymap.set("n", "<leader>vs", "<cmd>:vsplit<CR><C-w>l")
+vim.keymap.set("n", "<leader>hs", "<cmd>:split<CR><C-w>j")
 
 -- Why im keeping this?
 vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>");
