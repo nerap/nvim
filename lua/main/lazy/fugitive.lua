@@ -13,15 +13,14 @@ return {
           return
         end
 
-
         function GitPush()
-          vim.print("Pushing to origin")
+          -- vim.print("Pushing to origin")
           vim.fn.jobstart('git push origin `git branch --show-current`', {
             on_error = function()
               vim.print("Error pushing to origin")
             end,
             on_exit = function()
-              vim.print("Pushed to origin")
+              --vim.print("Pushed to origin")
             end
           })
         end
@@ -48,6 +47,7 @@ return {
 
           -- Retrieving commit message
           local commit_msg = vim.fn.input('Commit message: ')
+          vim.print(commit_msg)
           if commit_msg == nil or commit_msg == "" then
             vim.print("No commit message provided aborting...")
             return
