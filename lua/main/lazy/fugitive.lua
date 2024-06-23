@@ -64,8 +64,8 @@ return {
             -- Detached with jobstart (for shell commands)
             vim.fn.jobstart(cmd, {
               on_exit = function()
-                vim.print("Running git commit -sm " .. commit_msg .. " ...")
-                vim.fn.jobstart('git commit -sm ' .. commit_msg, {
+                vim.print("Running git commit -sam " .. commit_msg .. " ...")
+                vim.fn.jobstart('git commit -sam ' .. commit_msg, {
                   on_exit = function()
                     GitPush()
                   end
@@ -74,7 +74,7 @@ return {
             })
           else
             -- Commit the changes when the process is done
-            vim.cmd.Git('commit -sm ' .. commit_msg)
+            vim.cmd.Git('commit -sam ' .. commit_msg)
             GitPush()
           end
         end, opts)
