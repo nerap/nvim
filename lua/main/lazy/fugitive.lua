@@ -42,7 +42,7 @@ return {
           ["may"] = "yarn lint-staged",
         }
 
-        vim.keymap.set("n", "<leader>amp", function()
+        function GitCommit(is_pushing)
           -- Adding all files to stage
           vim.cmd.Git('add --all')
 
@@ -65,7 +65,9 @@ return {
                 vim.print("Running git commit -sam " .. commit_msg .. " ...")
                 vim.fn.jobstart('git commit -sam ' .. commit_msg, {
                   on_exit = function()
-                    GitPush()
+                    if is_pushing then
+                      GitPush()
+                    end
                   end
                 })
               end
@@ -73,8 +75,18 @@ return {
           else
             -- Commit the changes when the process is done
             vim.cmd.Git('commit -sam ' .. commit_msg)
-            GitPush()
+            if is_pushing then
+              GitPush()
+            end
           end
+        end
+
+        vim.keymap.set("n", "<leader>cm", function()
+          GitCommit(false)
+        end, opts)
+
+        vim.keymap.set("n", "<leader>amp", function()
+          GitCommit(true)
         end, opts)
       end,
     })
