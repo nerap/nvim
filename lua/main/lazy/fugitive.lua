@@ -40,27 +40,26 @@ return {
           vim.cmd.Git('add --all')
 
           -- Retrieving commit message
-          local commit_msg = vim.fn.input('Commit message: ')
+          local commit_msg = vim.fn.input('Message: ')
           if commit_msg == nil or commit_msg == "" then
             vim.print("No commit message provided aborting...")
             return
           end
 
-          -- Create a map from name to vim.cmd
-          local repo_pre_commit_mapping = {
-            ["may"] = "for pid in $(ps -ef | grep -E \".*node.*(may|yarn dev)\" | awk '{print $2}'); do kill -9 $pid; done; yarn lint-staged",
-          }
-
           -- Check if the git folder is a certain name
           local git_dir = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h")
-          local git_dir_name = vim.fn.fnamemodify(git_dir, ":t")
-          local cmd = repo_pre_commit_mapping[git_dir_name]
-          if cmd ~= nil then
-            vim.print("Running " .. cmd .. " ...")
+          local repo_name = vim.fn.fnamemodify(git_dir, ":t")
+          local home = vim.fn.expand("$HOME")
+          local pre_commit_script_path = home .. "/bin/.local/scripts/" .. repo_name .. "-pre-commit"
+
+          -- vim.print("pre_commit_script", pre_commit_script)
+          if vim.fn.filereadable(pre_commit_script_path) == 1 then
+            vim.print("Running pre-commit scripts for " .. repo_name .. " ...")
             -- Detached with jobstart (for shell commands)
-            vim.fn.jobstart(cmd, {
+            vim.fn.jobstart("sh " .. pre_commit_script_path, {
               on_exit = function()
                 vim.print("Running git commit -sam \"" .. commit_msg .. "\" ...")
+                vim.cmd("bufdo! silent! write")
                 vim.fn.jobstart('git commit -sam \"' .. commit_msg .. "\"", {
                   on_exit = function()
                     if is_pushing then
@@ -90,8 +89,6 @@ return {
         vim.keymap.set("n", "<leader>P", function()
           vim.cmd.Git('pull --rebase')
         end, opts)
-
-
 
         vim.keymap.set("n", "<leader>cm", function()
           GitCommit(false)
