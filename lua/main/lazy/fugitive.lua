@@ -38,6 +38,7 @@ return {
           })
         end
 
+
         function GitCommit(is_pushing)
           -- Adding all files to stage
           vim.cmd.Git('add --all')
