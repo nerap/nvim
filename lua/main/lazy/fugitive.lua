@@ -3,16 +3,6 @@ return {
   config = function()
     vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
 
-    local function reload_fugitive_index()
-      for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-        local bufname = vim.api.nvim_buf_get_name(buf)
-        if vim.startswith(bufname, 'fugitive://') and string.find(bufname, '.git//0/') then
-          vim.api.nvim_buf_call(buf, function()
-            vim.cmd.edit() -- refresh the buffer
-          end)
-        end
-      end
-    end
 
 
     local fugitive_group = vim.api.nvim_create_augroup("FugitiveGroup", {})
@@ -23,6 +13,16 @@ return {
       callback = function()
         if vim.bo.ft ~= "fugitive" then
           return
+        end
+        local function reload_fugitive_index()
+          for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+            local bufname = vim.api.nvim_buf_get_name(buf)
+            if vim.startswith(bufname, 'fugitive://') and string.find(bufname, '.git//0/') then
+              vim.api.nvim_buf_call(buf, function()
+                vim.cmd.edit() -- refresh the buffer
+              end)
+            end
+          end
         end
 
         function GitPush()
