@@ -14,15 +14,12 @@ return {
         if vim.bo.ft ~= "fugitive" then
           return
         end
+
         local function reload_fugitive_index()
-          for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-            local bufname = vim.api.nvim_buf_get_name(buf)
-            if vim.startswith(bufname, 'fugitive://') and string.find(bufname, '.git//0/') then
-              vim.api.nvim_buf_call(buf, function()
-                vim.cmd.edit() -- refresh the buffer
-              end)
-            end
-          end
+          local bufnr = vim.api.nvim_get_current_buf()
+          vim.api.nvim_buf_call(bufnr, function()
+            vim.cmd.edit() -- refresh the buffer
+          end)
         end
 
         function GitPush()
@@ -37,7 +34,6 @@ return {
             end
           })
         end
-
 
         function GitCommit(is_pushing)
           -- Adding all files to stage
