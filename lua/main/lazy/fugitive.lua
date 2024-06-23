@@ -25,33 +25,21 @@ return {
           })
         end
 
-        local bufnr = vim.api.nvim_get_current_buf()
-        local opts = { buffer = bufnr, remap = false }
-        vim.keymap.set("n", "<leader>p", function()
-          GitPush()
-        end, opts)
-
-        -- Rebase always
-        vim.keymap.set("n", "<leader>P", function()
-          vim.cmd.Git('pull --rebase')
-        end, opts)
-
-        -- Create a map from name to vim.cmd
-        local repo_pre_commit_mapping = {
-          ["may"] = "yarn lint-staged",
-        }
-
         function GitCommit(is_pushing)
           -- Adding all files to stage
           vim.cmd.Git('add --all')
 
           -- Retrieving commit message
           local commit_msg = vim.fn.input('Commit message: ')
-          vim.print(commit_msg)
           if commit_msg == nil or commit_msg == "" then
             vim.print("No commit message provided aborting...")
             return
           end
+
+          -- Create a map from name to vim.cmd
+          local repo_pre_commit_mapping = {
+            ["may"] = "yarn lint-staged",
+          }
 
           -- Check if the git folder is a certain name
           local git_dir = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h")
@@ -62,8 +50,8 @@ return {
             -- Detached with jobstart (for shell commands)
             vim.fn.jobstart(cmd, {
               on_exit = function()
-                vim.print("Running git commit -sam " .. commit_msg .. " ...")
-                vim.fn.jobstart('git commit -sam ' .. commit_msg, {
+                vim.print("Running git commit -sam \"" .. commit_msg .. "\" ...")
+                vim.fn.jobstart('git commit -sam \"' .. commit_msg .. "\"", {
                   on_exit = function()
                     if is_pushing then
                       GitPush()
@@ -74,12 +62,26 @@ return {
             })
           else
             -- Commit the changes when the process is done
-            vim.cmd.Git('commit -sam ' .. commit_msg)
+            vim.cmd.Git('commit -sam \"' .. commit_msg .. '\"')
             if is_pushing then
               GitPush()
             end
           end
         end
+
+        local bufnr = vim.api.nvim_get_current_buf()
+        local opts = { buffer = bufnr, remap = false }
+
+        vim.keymap.set("n", "<leader>p", function()
+          GitPush()
+        end, opts)
+
+        -- Rebase always
+        vim.keymap.set("n", "<leader>P", function()
+          vim.cmd.Git('pull --rebase')
+        end, opts)
+
+
 
         vim.keymap.set("n", "<leader>cm", function()
           GitCommit(false)
