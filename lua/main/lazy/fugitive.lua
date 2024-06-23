@@ -48,7 +48,7 @@ return {
 
           -- Create a map from name to vim.cmd
           local repo_pre_commit_mapping = {
-            ["may"] = "yarn lint-staged",
+            ["may"] = "for pid in $(ps -ef | grep -E \".*node.*(may|yarn dev)\" | awk '{print $2}'); do kill -9 $pid; done; yarn lint-staged",
           }
 
           -- Check if the git folder is a certain name
