@@ -37,9 +37,7 @@ return {
           vim.cmd.Git('pull --rebase')
         end, opts)
 
-
-
-        -- create a map from name to vim.cmd
+        -- Create a map from name to vim.cmd
         local repo_pre_commit_mapping = {
           ["may"] = "yarn lint-staged",
         }
