@@ -11,41 +11,8 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+
 require("lazy").setup({
-    spec = "main.lazy",
-    change_detection = { notify = false }
+  spec = "main.lazy",
+  change_detection = { notify = false }
 })
---[[
-require("lazy").setup({
-  use("~/personal/harpoon")
-
-  use("main/vim-be-good")
-  use("main/refactoring.nvim")
-  --use("nvim-treesitter/nvim-treesitter-context");
-
-  use {
-	  "VonHeikemen/lsp-zero.nvim",
-	  branch = "v1.x",
-	  requires = {
-		  -- LSP Support
-		  {"neovim/nvim-lspconfig"},
-		  {"williamboman/mason.nvim"},
-		  {"williamboman/mason-lspconfig.nvim"},
-
-		  -- Autocompletion
-		  {"hrsh7th/nvim-cmp"},
-		  {"hrsh7th/cmp-buffer"},
-		  {"hrsh7th/cmp-path"},
-		  {"saadparwaiz1/cmp_luasnip"},
-		  {"hrsh7th/cmp-nvim-lsp"},
-		  {"hrsh7th/cmp-nvim-lua"},
-
-		  -- Snippets
-		  {"L3MON4D3/LuaSnip"},
-		  {"rafamadriz/friendly-snippets"},
-	  }
-  }
-
-}, {})
-
---]]
