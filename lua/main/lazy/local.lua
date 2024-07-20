@@ -1,4 +1,4 @@
-local local_plugins = {
+return {
   {
     "harpoon",
     dir = "~/personal/harpoon",
@@ -16,16 +16,25 @@ local local_plugins = {
       vim.keymap.set("n", "<C-l>", function() harpoon:list():select(4) end)
     end
   },
---  {
---    "vim-apm",
---    dir = "~/personal/vim-apm",
---    config = function()
---      local apm = require("vim-apm")
---
---      apm:setup({})
---      vim.keymap.set("n", "<leader>apm", function() apm:toggle_monitor() end)
---    end
---  },
+  {
+    "gitmoji",
+    dir = "~/personal/gitmoji",
+    dependencies = { 'nvim-telescope/telescope.nvim' },
+    opts = {},
+    config = function()
+      -- Run the sync script manually to sync the gitmojis (this is a workaround, I need to find a better way to do this like in lua...)
+      os.execute("sh ~/personal/gitmoji/scripts/sync-gitmojis.sh")
+      require("gitmoji").setup({})
+    end
+  }
+  --  {
+  --    "vim-apm",
+  --    dir = "~/personal/vim-apm",
+  --    config = function()
+  --      local apm = require("vim-apm")
+  --
+  --      apm:setup({})
+  --      vim.keymap.set("n", "<leader>apm", function() apm:toggle_monitor() end)
+  --    end
+  --  },
 }
-
-return local_plugins
