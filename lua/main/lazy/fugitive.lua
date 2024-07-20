@@ -73,6 +73,9 @@ return {
 
             -- Committing (reloading the index after commit)
             vim.fn.jobstart(git_commit(message), {
+              on_error = function()
+                vim.print("Error committing")
+              end,
               on_exit = function()
                 reload_fugitive_index()
               end
