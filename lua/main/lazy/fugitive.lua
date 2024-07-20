@@ -65,6 +65,7 @@ return {
 
 
           local function git_commit_flow(message)
+            print(type(message))
             if message == nil or message == "" then
               vim.print("No commit message provided aborting...")
               return
