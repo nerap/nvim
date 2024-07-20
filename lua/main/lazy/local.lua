@@ -22,8 +22,6 @@ return {
     dependencies = { 'nvim-telescope/telescope.nvim' },
     opts = {},
     config = function()
-      -- Run the sync script manually to sync the gitmojis (this is a workaround, I need to find a better way to do this like in lua...)
-      os.execute("sh ~/personal/gitmoji/scripts/sync-gitmojis.sh")
       require("gitmoji").setup({})
     end
   }
