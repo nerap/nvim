@@ -17,12 +17,7 @@ return {
       local fugitive_group = vim.api.nvim_create_augroup("FugitiveGroup", {})
       local autocmd = vim.api.nvim_create_autocmd
 
-      local function reload_fugitive_index()
-        local bufnr = vim.api.nvim_get_current_buf()
-        vim.api.nvim_buf_call(bufnr, function()
-          vim.cmd.edit()     -- refresh the buffer
-        end)
-      end
+
 
       autocmd("BufWinEnter", {
         group = fugitive_group,
@@ -39,6 +34,11 @@ return {
             vim.cmd.Git('add --all')
           end
 
+          local function reload_fugitive_index()
+            vim.api.nvim_buf_call(bufnr, function()
+              vim.cmd.edit() -- refresh the buffer
+            end)
+          end
           local function git_commit(commit_msg)
             -- Check if the git folder is a certain name
             local git_dir = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h")
