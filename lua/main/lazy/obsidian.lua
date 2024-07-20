@@ -12,8 +12,12 @@ return {
         },
         workspaces = {
           {
-            name = "nerap",
-            path = "~/vaults/nerap",
+            name = "may",
+            path = "~/vaults/may",
+          },
+          {
+            name = "personnal",
+            path = "~/vaults/personnal",
           },
         },
         completion = {
