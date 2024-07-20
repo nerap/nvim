@@ -55,10 +55,12 @@ return {
                   vim.print("Running git commit -sam \"" .. commit_msg .. "\" ...")
                   vim.cmd("bufdo! silent! write")
                   vim.cmd.Git('commit -sam \"' .. commit_msg .. '\"')
+                  reload_fugitive_index()
                 end
               })
             else
               vim.cmd.Git('commit -sam \"' .. commit_msg .. '\"')
+              reload_fugitive_index()
             end
           end
 
@@ -72,14 +74,7 @@ return {
             git_add()
 
             -- Committing (reloading the index after commit)
-            vim.fn.jobstart(git_commit(message), {
-              on_error = function()
-                vim.print("Error committing")
-              end,
-              on_exit = function()
-                reload_fugitive_index()
-              end
-            })
+            git_commit(message)
           end
 
           local function git_push()
@@ -99,7 +94,7 @@ return {
             vim.cmd.Git('pull --rebase')
           end, opts)
 
-          vim.keymap.set("n", "<leader>csm", function()
+          vim.keymap.set("n", "<leader>cm", function()
             require("gitmoji").open_floating(git_commit_flow)
           end, opts)
 
