@@ -86,11 +86,19 @@ return {
             end
           end
 
+
           local bufnr = vim.api.nvim_get_current_buf()
           local opts = { buffer = bufnr, remap = false }
 
           vim.keymap.set("n", "<leader>p", function()
             GitPush()
+          end, opts)
+
+
+          vim.keymap.set("n", "<leader>io", function()
+            local floating_menu = require("neo-gitmoji").open_floating
+            local hi = floating_menu()
+            print(hi)
           end, opts)
 
           -- Rebase always
