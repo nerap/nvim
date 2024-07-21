@@ -86,6 +86,7 @@ return {
               on_exit = function()
                 reload_fugitive_index()
                 vim.print("Pushed to origin")
+                vim.api.nvim_buf_delete(bufnr, { force = false })
               end
             })
           end
