@@ -17,8 +17,6 @@ return {
       local fugitive_group = vim.api.nvim_create_augroup("FugitiveGroup", {})
       local autocmd = vim.api.nvim_create_autocmd
 
-
-
       autocmd("BufWinEnter", {
         group = fugitive_group,
         pattern = "*",
@@ -59,7 +57,7 @@ return {
                 end
               })
             else
-              vim.cmd.Git('commit -sam \"' .. commit_msg .. '\"')
+              vim.cmd.Git('commit -asm \"' .. commit_msg .. '\"')
               reload_fugitive_index()
             end
           end
@@ -70,10 +68,6 @@ return {
               return
             end
 
-            -- Adding all files
-            git_add()
-
-            -- Committing (reloading the index after commit)
             git_commit(message)
           end
 
@@ -93,6 +87,10 @@ return {
 
           vim.keymap.set("n", "<leader>P", function()
             vim.cmd.Git('pull --rebase')
+          end, opts)
+
+          vim.keymap.set("n", "<leader>gA", function()
+            git_add()
           end, opts)
 
           vim.keymap.set("n", "<leader>cm", function()
