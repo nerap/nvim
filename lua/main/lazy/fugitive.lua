@@ -93,6 +93,7 @@ return {
             git_add()
           end, opts)
 
+          -- Default add tracked files
           vim.keymap.set("n", "<leader>cm", function()
             require("gitmoji").open_floating(git_commit_flow)
           end, opts)
