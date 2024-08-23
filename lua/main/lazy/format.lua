@@ -50,8 +50,6 @@ return {
           json = { { "prettierd", "prettier" } },
           graphql = { { "prettierd", "prettier" } },
           java = { "google-java-format" },
-          kotlin = { "ktlint" },
-          ruby = { "standardrb" },
           markdown = { { "prettierd", "prettier" } },
           erb = { "htmlbeautifier" },
           html = { "htmlbeautifier" },
