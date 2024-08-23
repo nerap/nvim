@@ -1,10 +1,10 @@
-require("main.set")
-require("main.remap")
+require("set")
+require("remap")
 
-require("main.lazy_init")
+require("lazy_init")
 
 local augroup = vim.api.nvim_create_augroup
-local main = augroup('Main', {})
+local nerap = augroup('nerap', {})
 
 local autocmd = vim.api.nvim_create_autocmd
 local yank_group = augroup('HighlightYank', {})
@@ -31,13 +31,13 @@ autocmd('TextYankPost', {
 })
 
 autocmd({"BufWritePre"}, {
-    group = main,
+    group = nerap,
     pattern = "*",
     command = [[%s/\s\+$//e]],
 })
 
 autocmd('LspAttach', {
-    group = main,
+    group = nerap,
     callback = function(e)
         local opts = { buffer = e.buf }
         vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
