@@ -46,7 +46,6 @@ return {
             })
           end
 
-
           local function git_commit_flow(message, verify)
             if message == nil or message == "" then
               vim.print("No commit message provided aborting...")
@@ -81,6 +80,7 @@ return {
             require("gitmoji").open_floating(git_commit_flow, false)
           end, opts)
 
+          -- Verify commit
           vim.keymap.set("n", "<leader>cv", function()
             require("gitmoji").open_floating(git_commit_flow, true)
           end, opts)
