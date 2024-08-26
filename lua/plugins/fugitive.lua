@@ -38,55 +38,21 @@ return {
             end)
           end
           local function git_commit(commit_msg, verify)
-            -- Check if the git folder is a certain name
-          --  local git_dir = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h")
-         --   local repo_name = vim.fn.fnamemodify(git_dir, ":t")
-        --    local home = vim.fn.expand("$HOME")
-
             vim.cmd.Git('add .');
-            --local pre_commit_script_path = home .. "/bin/.local/scripts/" .. repo_name .. "-pre-commit"
-
-            -- Check if there is a pre-commit script
-            --    if vim.fn.filereadable(pre_commit_script_path) == 1 then
-            --      vim.print("Running pre-commit scripts for " .. repo_name .. " ...")
-            --      -- Detached with jobstart (for shell commands)
-            --      vim.fn.jobstart("sh " .. pre_commit_script_path, {
-            --        on_exit = function()
-            --          vim.print("Running git commit -sam \"" .. commit_msg .. "\" ...")
-            --          vim.cmd("bufdo! silent! write")
-            --          vim.cmd.Git('commit -sam \"' .. commit_msg .. '\"')
-            --          reload_fugitive_index()
-            --        end
-            --      })
-            --    else
-            print('git add .')
-            print('git commit' .. (verify and "" or " --no-verify") .. ' -S -m \"' .. commit_msg .. '\"')
-           vim.fn.jobstart('git commit' .. (verify and "" or " --no-verify") .. ' -S -m \"' .. commit_msg .. '\"' , {
+            vim.fn.jobstart('git commit' .. (verify and "" or " --no-verify") .. ' -S -m \"' .. commit_msg .. '\"', {
               on_exit = function()
                 reload_fugitive_index()
               end
             })
-            --            vim.cmd.Git('commit' .. (verify and "" or " --no-verify") .. ' -S -m \"' .. commit_msg .. '\"' )
-           -- reload_fugitive_index()
-            --    end
           end
 
-          local function git_commit_flow_no_verify(message)
+
+          local function git_commit_flow(message, verify)
             if message == nil or message == "" then
               vim.print("No commit message provided aborting...")
               return
             end
-
-            git_commit(message, false)
-          end
-
-          local function git_commit_flow(message)
-            if message == nil or message == "" then
-              vim.print("No commit message provided aborting...")
-              return
-            end
-
-            git_commit(message, true)
+            git_commit(message, verify)
           end
 
           local function git_push()
@@ -112,11 +78,11 @@ return {
           end, opts)
 
           vim.keymap.set("n", "<leader>cm", function()
-            require("gitmoji").open_floating(git_commit_flow_no_verify)
+            require("gitmoji").open_floating(git_commit_flow, false)
           end, opts)
 
           vim.keymap.set("n", "<leader>cv", function()
-            require("gitmoji").open_floating(git_commit_flow)
+            require("gitmoji").open_floating(git_commit_flow, true)
           end, opts)
 
           vim.keymap.set("n", "<leader>p", function()
