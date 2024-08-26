@@ -42,6 +42,7 @@ return {
             local git_dir = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h")
             local repo_name = vim.fn.fnamemodify(git_dir, ":t")
             local home = vim.fn.expand("$HOME")
+
             vim.cmd.Git('add .');
             --local pre_commit_script_path = home .. "/bin/.local/scripts/" .. repo_name .. "-pre-commit"
 
