@@ -37,29 +37,39 @@ return {
               vim.cmd.edit() -- refresh the buffer
             end)
           end
-          local function git_commit(commit_msg)
+          local function git_commit(commit_msg, verify)
             -- Check if the git folder is a certain name
             local git_dir = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h")
             local repo_name = vim.fn.fnamemodify(git_dir, ":t")
             local home = vim.fn.expand("$HOME")
-            local pre_commit_script_path = home .. "/bin/.local/scripts/" .. repo_name .. "-pre-commit"
+            vim.cmd.Git('add .');
+            --local pre_commit_script_path = home .. "/bin/.local/scripts/" .. repo_name .. "-pre-commit"
 
             -- Check if there is a pre-commit script
-        --    if vim.fn.filereadable(pre_commit_script_path) == 1 then
-        --      vim.print("Running pre-commit scripts for " .. repo_name .. " ...")
-        --      -- Detached with jobstart (for shell commands)
-        --      vim.fn.jobstart("sh " .. pre_commit_script_path, {
-        --        on_exit = function()
-        --          vim.print("Running git commit -sam \"" .. commit_msg .. "\" ...")
-        --          vim.cmd("bufdo! silent! write")
-        --          vim.cmd.Git('commit -sam \"' .. commit_msg .. '\"')
-        --          reload_fugitive_index()
-        --        end
-        --      })
-        --    else
-              vim.cmd.Git('commit -asm \"' .. commit_msg .. '\"')
-              reload_fugitive_index()
-        --    end
+            --    if vim.fn.filereadable(pre_commit_script_path) == 1 then
+            --      vim.print("Running pre-commit scripts for " .. repo_name .. " ...")
+            --      -- Detached with jobstart (for shell commands)
+            --      vim.fn.jobstart("sh " .. pre_commit_script_path, {
+            --        on_exit = function()
+            --          vim.print("Running git commit -sam \"" .. commit_msg .. "\" ...")
+            --          vim.cmd("bufdo! silent! write")
+            --          vim.cmd.Git('commit -sam \"' .. commit_msg .. '\"')
+            --          reload_fugitive_index()
+            --        end
+            --      })
+            --    else
+            vim.cmd.Git('commit' .. (verify and "" or " --no-verify") .. ' -S -m \"' .. commit_msg .. '\"' )
+            reload_fugitive_index()
+            --    end
+          end
+
+          local function git_commit_flow_no_verify(message)
+            if message == nil or message == "" then
+              vim.print("No commit message provided aborting...")
+              return
+            end
+
+            git_commit(message, false)
           end
 
           local function git_commit_flow(message)
@@ -68,7 +78,7 @@ return {
               return
             end
 
-            git_commit(message)
+            git_commit(message, true)
           end
 
           local function git_push()
@@ -93,8 +103,11 @@ return {
             git_add()
           end, opts)
 
-          -- Default add tracked files
           vim.keymap.set("n", "<leader>cm", function()
+            require("gitmoji").open_floating(git_commit_flow_no_verify)
+          end, opts)
+
+          vim.keymap.set("n", "<leader>cv", function()
             require("gitmoji").open_floating(git_commit_flow)
           end, opts)
 
