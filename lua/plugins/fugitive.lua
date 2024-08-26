@@ -59,6 +59,7 @@ return {
             --        end
             --      })
             --    else
+            print('git add .')
             print('git commit' .. (verify and "" or " --no-verify") .. ' -S -m \"' .. commit_msg .. '\"')
            vim.fn.jobstart('git commit' .. (verify and "" or " --no-verify") .. ' -S -m \"' .. commit_msg .. '\"' , {
               on_exit = function()
