@@ -39,9 +39,9 @@ return {
           end
           local function git_commit(commit_msg, verify)
             -- Check if the git folder is a certain name
-            local git_dir = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h")
-            local repo_name = vim.fn.fnamemodify(git_dir, ":t")
-            local home = vim.fn.expand("$HOME")
+          --  local git_dir = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h")
+         --   local repo_name = vim.fn.fnamemodify(git_dir, ":t")
+        --    local home = vim.fn.expand("$HOME")
 
             vim.cmd.Git('add .');
             --local pre_commit_script_path = home .. "/bin/.local/scripts/" .. repo_name .. "-pre-commit"
@@ -59,8 +59,14 @@ return {
             --        end
             --      })
             --    else
-            vim.cmd.Git('commit' .. (verify and "" or " --no-verify") .. ' -S -m \"' .. commit_msg .. '\"' )
-            reload_fugitive_index()
+            print('git commit' .. (verify and "" or " --no-verify") .. ' -S -m \"' .. commit_msg .. '\"')
+           vim.fn.jobstart('git commit' .. (verify and "" or " --no-verify") .. ' -S -m \"' .. commit_msg .. '\"' , {
+              on_exit = function()
+                reload_fugitive_index()
+              end
+            })
+            --            vim.cmd.Git('commit' .. (verify and "" or " --no-verify") .. ' -S -m \"' .. commit_msg .. '\"' )
+           -- reload_fugitive_index()
             --    end
           end
 
