@@ -45,21 +45,21 @@ return {
             local pre_commit_script_path = home .. "/bin/.local/scripts/" .. repo_name .. "-pre-commit"
 
             -- Check if there is a pre-commit script
-            if vim.fn.filereadable(pre_commit_script_path) == 1 then
-              vim.print("Running pre-commit scripts for " .. repo_name .. " ...")
-              -- Detached with jobstart (for shell commands)
-              vim.fn.jobstart("sh " .. pre_commit_script_path, {
-                on_exit = function()
-                  vim.print("Running git commit -sam \"" .. commit_msg .. "\" ...")
-                  vim.cmd("bufdo! silent! write")
-                  vim.cmd.Git('commit -sam \"' .. commit_msg .. '\"')
-                  reload_fugitive_index()
-                end
-              })
-            else
+        --    if vim.fn.filereadable(pre_commit_script_path) == 1 then
+        --      vim.print("Running pre-commit scripts for " .. repo_name .. " ...")
+        --      -- Detached with jobstart (for shell commands)
+        --      vim.fn.jobstart("sh " .. pre_commit_script_path, {
+        --        on_exit = function()
+        --          vim.print("Running git commit -sam \"" .. commit_msg .. "\" ...")
+        --          vim.cmd("bufdo! silent! write")
+        --          vim.cmd.Git('commit -sam \"' .. commit_msg .. '\"')
+        --          reload_fugitive_index()
+        --        end
+        --      })
+        --    else
               vim.cmd.Git('commit -asm \"' .. commit_msg .. '\"')
               reload_fugitive_index()
-            end
+        --    end
           end
 
           local function git_commit_flow(message)
