@@ -77,19 +77,17 @@ return {
           end, opts)
 
           vim.keymap.set("n", "<leader>cm", function()
---:            require("gitmoji").open_floating(git_commit_flow, false)
-
-
-
             require("gitmoji").open_floating(
               function(message)
                 return git_commit_flow(message, false)
               end, false)
           end, opts)
 
-          -- Verify commit
           vim.keymap.set("n", "<leader>cv", function()
-            require("gitmoji").open_floating(git_commit_flow, true)
+            require("gitmoji").open_floating(
+              function(message)
+                return git_commit_flow(message, true)
+              end, false)
           end, opts)
 
           vim.keymap.set("n", "<leader>p", function()
