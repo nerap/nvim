@@ -39,11 +39,8 @@ return {
           end
 
           local function git_commit(commit_msg, verify)
-            vim.fn.jobstart('git commit' .. (verify and "" or " --no-verify") .. ' -S -am \"' .. commit_msg .. '\"', {
-              on_exit = function()
-                reload_fugitive_index()
-              end
-            })
+            vim.cmd.Git('commit' .. (verify and "" or " --no-verify") .. ' -S -am \"' .. commit_msg .. '\"')
+            reload_fugitive_index()
           end
 
           local function git_commit_flow(message, verify)
