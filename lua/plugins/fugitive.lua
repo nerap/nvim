@@ -38,8 +38,7 @@ return {
             end)
           end
           local function git_commit(commit_msg, verify)
-            vim.cmd.Git('add .');
-            vim.fn.jobstart('git commit' .. (verify and "" or " --no-verify") .. ' -S -m \"' .. commit_msg .. '\"', {
+            vim.fn.jobstart('git commit' .. (verify and "" or " --no-verify") .. ' -S -am \"' .. commit_msg .. '\"', {
               on_exit = function()
                 reload_fugitive_index()
               end
