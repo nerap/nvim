@@ -39,16 +39,12 @@ return {
           end
 
           local function git_commit(commit_msg, verify)
-            vim.cmd.Git('commit' .. (verify and "" or " --no-verify") .. ' -S -am \"' .. commit_msg .. '\"')
-            reload_fugitive_index()
-          end
-
-          local function git_commit_flow(message, verify)
-            if message == nil or message == "" then
+            if commit_msg == nil or commit_msg == "" then
               vim.print("No commit message provided aborting...")
               return
             end
-            git_commit(message, verify)
+            vim.cmd.Git('commit' .. (verify and "" or " --no-verify") .. ' -S -am \"' .. commit_msg .. '\"')
+            reload_fugitive_index()
           end
 
           local function git_push()
@@ -76,14 +72,14 @@ return {
           vim.keymap.set("n", "<leader>cm", function()
             require("gitmoji").open_floating(
               function(message)
-                return git_commit_flow(message, false)
+                return git_commit(message, false)
               end)
           end, opts)
 
           vim.keymap.set("n", "<leader>cv", function()
             require("gitmoji").open_floating(
               function(message)
-                return git_commit_flow(message, true)
+                return git_commit(message, true)
               end)
           end, opts)
 
