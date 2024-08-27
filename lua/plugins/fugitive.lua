@@ -34,9 +34,10 @@ return {
 
           local function reload_fugitive_index()
             vim.api.nvim_buf_call(bufnr, function()
-              vim.cmd.edit() -- refresh the buffer
+              vim.cmd.edit()
             end)
           end
+
           local function git_commit(commit_msg, verify)
             vim.fn.jobstart('git commit' .. (verify and "" or " --no-verify") .. ' -S -am \"' .. commit_msg .. '\"', {
               on_exit = function()
@@ -76,7 +77,14 @@ return {
           end, opts)
 
           vim.keymap.set("n", "<leader>cm", function()
-            require("gitmoji").open_floating(git_commit_flow, false)
+--:            require("gitmoji").open_floating(git_commit_flow, false)
+
+
+
+            require("gitmoji").open_floating(
+              function(message)
+                return git_commit_flow(message, false)
+              end, false)
           end, opts)
 
           -- Verify commit
