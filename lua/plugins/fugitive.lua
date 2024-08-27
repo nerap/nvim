@@ -48,17 +48,9 @@ return {
           end
 
           local function git_push()
-            vim.print("Pushing to origin")
-            vim.fn.jobstart('git push origin `git branch --show-current`', {
-              on_error = function()
-                vim.print("Error pushing to origin")
-              end,
-              on_exit = function()
-                reload_fugitive_index()
-                vim.print("Pushed to origin")
-                vim.api.nvim_buf_delete(bufnr, { force = false })
-              end
-            })
+            vim.cmd.Git('push origin `git branch --show-current`')
+            reload_fugitive_index()
+            vim.api.nvim_buf_delete(bufnr, { force = false })
           end
 
           vim.keymap.set("n", "<leader>P", function()
