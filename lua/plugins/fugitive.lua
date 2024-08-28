@@ -28,7 +28,7 @@ return {
           local bufnr = vim.api.nvim_get_current_buf()
           local opts = { buffer = bufnr, remap = false }
 
-          local function git_add()
+          local function git_add_all()
             vim.cmd.Git('add --all')
           end
 
@@ -62,8 +62,8 @@ return {
             vim.cmd.Git('pull --rebase')
           end, opts)
 
-          vim.keymap.set("n", "<leader>gA", function()
-            git_add()
+          vim.keymap.set("n", "<leader>ga", function()
+            git_add_all()
           end, opts)
 
           vim.keymap.set("n", "<leader>cm", function()
