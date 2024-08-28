@@ -52,7 +52,6 @@ return {
           local function git_push(force)
             local branch = vim.fn.systemlist('git branch --show-current')[1]
 
-            print('push origin ' .. branch .. (force and "" or " --force-with-lease"))
             vim.cmd.Git('push origin ' .. branch .. (force and "" or " --force-with-lease"))
             reload_fugitive_index()
             -- We are deleting the buffer since it's not needed anymore
