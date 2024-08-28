@@ -87,14 +87,6 @@ return {
           vim.keymap.set("n", "<leader>pf", function()
             git_push(true)
           end, opts)
-
-          vim.keymap.set("n", "<leader>st", function()
-            vim.cmd.Git('stash')
-          end, opts)
-
-          vim.keymap.set("n", "<leader>sp", function()
-            vim.cmd.Git('stash pop')
-          end, opts)
         end,
       })
 
