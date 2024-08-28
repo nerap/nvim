@@ -43,15 +43,14 @@ return {
               vim.print("No commit message provided aborting...")
               return
             end
-
             -- We make sure to check if we want to verify to prevent hooks from running
             vim.cmd.Git('commit' .. (verify and "" or " --no-verify") .. ' -S -am \"' .. commit_msg .. '\"')
             reload_fugitive_index()
           end
 
-          local function git_push()
+          local function git_push(force)
             local branch = vim.fn.systemlist('git branch --show-current')[1]
-            vim.cmd.Git('push origin ' .. branch)
+            vim.cmd.Git('push origin ' .. branch .. (force and "" or " --force-with-lease"))
             reload_fugitive_index()
             vim.api.nvim_buf_delete(bufnr, { force = false })
           end
@@ -78,8 +77,12 @@ return {
               end)
           end, opts)
 
-          vim.keymap.set("n", "<leader>p", function()
-            git_push()
+          vim.keymap.set("n", "<leader>pp", function()
+            git_push(false)
+          end, opts)
+
+          vim.keymap.set("n", "<leader>pf", function()
+            git_push(true)
           end, opts)
 
           vim.keymap.set("n", "<leader>st", function()
