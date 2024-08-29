@@ -1,14 +1,14 @@
 return {
-  {
-    "APZelos/blamer.nvim",
-    config = function()
-      vim.g.blamer_enabled = true
-      vim.g.blamer_delay = 1000
-      vim.g.blamer_prefix = ""
-      vim.g.blamer_relative_time = true
-      vim.g.blamer_template = "<author>, • <summary>"
-    end
-  },
+--  {
+--    "APZelos/blamer.nvim",
+--    config = function()
+--      vim.g.blamer_enabled = true
+--      vim.g.blamer_delay = 1000
+--      vim.g.blamer_prefix = ""
+--      vim.g.blamer_relative_time = true
+--      vim.g.blamer_template = "<author>, • <summary>"
+--    end
+--  },
   {
     "tpope/vim-fugitive",
     config = function()
