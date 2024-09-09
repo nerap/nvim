@@ -2,19 +2,27 @@ return {
   {
     "folke/noice.nvim",
     event = "VeryLazy",
-    opts = {
-      routes = {
-        {
-          filter = { event = "notify", find = "No information available" },
-          opts = { skip = true },
+    config = function()
+      require("noice").setup({
+        stages = "static",
+        routes = {
+          {
+            filter = { event = "notify", find = "No information available" },
+            opts = { skip = true },
+          },
         },
-      },
-      presets = {
-        lsp_doc_border = true,
-      },
-    },
+        presets = {
+          lsp_doc_border = true,
+        }
+      })
+      vim.keymap.set("n", "<leader>di", function()
+        require("noice").cmd("dismiss")
+      end)
+    end,
     dependencies = {
       "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+
     },
   },
   {
