@@ -1,14 +1,4 @@
 return {
---  {
---    "APZelos/blamer.nvim",
---    config = function()
---      vim.g.blamer_enabled = true
---      vim.g.blamer_delay = 1000
---      vim.g.blamer_prefix = ""
---      vim.g.blamer_relative_time = true
---      vim.g.blamer_template = "<author>, • <summary>"
---    end
---  },
   {
     "tpope/vim-fugitive",
     config = function()
@@ -45,7 +35,8 @@ return {
             end
 
             -- We make sure to check if we want to verify to prevent hooks from running
-            vim.cmd.Git('commit' .. (verify and "" or " --no-verify") .. ' -S -am \"' .. commit_msg .. '\"')
+            -- vim.cmd.Git('commit' .. (verify and "" or " --no-verify") .. ' -S -am \"' .. commit_msg .. '\"')
+            vim.cmd.Git('commit' .. (verify and "" or " --no-verify") .. ' -am \"' .. commit_msg .. '\"')
             reload_fugitive_index()
           end
 
