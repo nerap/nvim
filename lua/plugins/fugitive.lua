@@ -35,6 +35,7 @@ return {
             end
 
 
+
             -- We make sure to check if we want to verify to prevent hooks from running
             -- vim.cmd.Git('commit' .. (verify and "" or " --no-verify") .. ' -S -am \"' .. commit_msg .. '\"')
             vim.cmd.Git('commit' .. (verify and "" or " --no-verify") .. ' -am \"' .. commit_msg .. '\"')
