@@ -5,23 +5,33 @@ return {
     config = function()
       require("noice").setup({
         stages = "static",
+        -- messages = {
+        --   -- NOTE: If you enable messages, then the cmdline is enabled automatically.
+        --   -- This is a current Neovim limitation.
+        --   enabled = true,        -- enables the Noice messages UI
+        --   view = "mini",       -- default view for messages
+        --   view_info = "mini",    -- view for info messages
+        --   view_error = "mini", -- view for errors
+        --   view_warn = "mini",  -- view for warnings
+        --   view_history = "messages", -- view for :messages
+        --   view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
+        -- },
         routes = {
           {
             filter = { event = "notify", find = "No information available" },
-            opts = { skip = true },
           },
         },
         presets = {
           lsp_doc_border = true,
         }
-      })
+     })
       vim.keymap.set("n", "<leader>di", function()
         require("noice").cmd("dismiss")
       end)
     end,
     dependencies = {
       "MunifTanjim/nui.nvim",
-      "rcarriga/nvim-notify",
+      -- "rcarriga/nvim-notify",
     },
   },
   {
