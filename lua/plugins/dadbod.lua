@@ -4,6 +4,7 @@ return {
     dependencies = {
       { 'tpope/vim-dadbod',                     lazy = true },
       { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
+      { 'ellisonleao/dotenv.nvim',              lazy = true },
     },
     cmd = {
       'DBUI',
@@ -23,10 +24,37 @@ return {
           vim.opt_local.foldenable = false
         end
       })
+
       vim.g.db_ui_use_nerd_fonts = 1
 
+      vim.g.db_ui_auto_execute_table_helpers = 1
+
+      vim.g.db_ui_table_helpers = {
+        postgres = {
+          select = 'SELECT * FROM %s LIMIT 100 ORDER BY created_at DESC',
+          insert = 'INSERT INTO %s (%s) VALUES (%s)',
+        },
+        mysql = {
+          select = 'SELECT * FROM %s LIMIT 100 ORDER BY created_at DESC',
+          insert = 'INSERT INTO %s (%s) VALUES (%s)',
+        },
+        sqlite = {
+          select = 'SELECT * FROM %s LIMIT 100 ORDER BY created_at DESC',
+          insert = 'INSERT INTO %s (%s) VALUES (%s)',
+        },
+      }
+
+      vim.g.db_ui_execute_on_save = 0
       -- Remap to :DBUIToggle
       vim.api.nvim_set_keymap('n', '<leader>db', ':DBUIToggle<CR>', { noremap = true, silent = true })
+      -- Remap EXECUTE to
+      vim.api.nvim_set_keymap('n', '<leader>dj', '<Plug>(DBUI_ExecuteQuery)', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('n', '<leader>dh', '<Plug>(DBUI_ToggleResultLayout)', { noremap = true, silent = true })
+
+      require('dotenv').setup({
+        enable_on_load = true, -- will load your .env file upon loading a buffer
+        verbose = false, -- show error notification if .env file is not found and if .env is loaded
+      })
     end,
   }
 }
