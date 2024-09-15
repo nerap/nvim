@@ -24,6 +24,9 @@ return {
         end
       })
       vim.g.db_ui_use_nerd_fonts = 1
+
+      -- Remap to :DBUIToggle
+      vim.api.nvim_set_keymap('n', '<leader>db', ':DBUIToggle<CR>', { noremap = true, silent = true })
     end,
   }
 }
