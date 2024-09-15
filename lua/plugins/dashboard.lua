@@ -1,40 +1,5 @@
 return {
   {
-    "folke/noice.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("noice").setup({
-        stages = "static",
-        -- messages = {
-        --   -- NOTE: If you enable messages, then the cmdline is enabled automatically.
-        --   -- This is a current Neovim limitation.
-        --   enabled = true,        -- enables the Noice messages UI
-        --   view = "mini",       -- default view for messages
-        --   view_info = "mini",    -- view for info messages
-        --   view_error = "mini", -- view for errors
-        --   view_warn = "mini",  -- view for warnings
-        --   view_history = "messages", -- view for :messages
-        --   view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
-        -- },
-        routes = {
-          {
-            filter = { event = "notify", find = "No information available" },
-          },
-        },
-        presets = {
-          lsp_doc_border = true,
-        }
-     })
-      vim.keymap.set("n", "<leader>di", function()
-        require("noice").cmd("dismiss")
-      end)
-    end,
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      -- "rcarriga/nvim-notify",
-    },
-  },
-  {
     "nvimdev/dashboard-nvim",
     event = "VimEnter",
     opts = function()
@@ -116,11 +81,6 @@ return {
           lualine_c = { { "filename", path = 1 } },
           lualine_x = {
             { "fileformat", "filetype" },
-            {
-              require("noice").api.statusline.mode.get,
-              cond = require("noice").api.statusline.mode.has,
-              color = { fg = "#ff9e64" },
-            },
           },
           lualine_y = { "progress" },
           lualine_z = { "location" },
