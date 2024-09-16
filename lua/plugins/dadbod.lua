@@ -31,16 +31,13 @@ return {
 
       vim.g.db_ui_table_helpers = {
         postgres = {
-          select = 'SELECT * FROM %s LIMIT 100 ORDER BY created_at DESC',
-          insert = 'INSERT INTO %s (%s) VALUES (%s)',
+          List = 'SELECT * FROM {optional_schema}{table} ORDER BY created_at DESC LIMIT 100',
         },
         mysql = {
-          select = 'SELECT * FROM %s LIMIT 100 ORDER BY created_at DESC',
-          insert = 'INSERT INTO %s (%s) VALUES (%s)',
+          List = 'SELECT * FROM {optional_schema}{table} ORDER BY created_at DESC LIMIT 100',
         },
         sqlite = {
-          select = 'SELECT * FROM %s LIMIT 100 ORDER BY created_at DESC',
-          insert = 'INSERT INTO %s (%s) VALUES (%s)',
+          List = 'SELECT * FROM {optional_schema}{table} ORDER BY created_at DESC LIMIT 100',
         },
       }
 
