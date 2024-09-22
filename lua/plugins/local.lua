@@ -1,7 +1,6 @@
 return {
   {
-    "gitmoji",
-    dir = "~/personal/gitmoji",
+    "nerap/gitmoji.nvim",
     dependencies = { 'nvim-telescope/telescope.nvim' },
     opts = {},
     config = function()
