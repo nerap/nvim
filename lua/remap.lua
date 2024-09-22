@@ -63,9 +63,6 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 vim.keymap.set("n", "<leader>vs", "<cmd>:vsplit<CR><C-w>l")
 vim.keymap.set("n", "<leader>hs", "<cmd>:split<CR><C-w>j")
 
--- Why im keeping this?
-vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>");
-
 vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
 end)
