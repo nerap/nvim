@@ -5,7 +5,7 @@ return {
     cmd = "Trouble",
     keys = {
       {
-        "<leader>xx",
+        "<leader>xl",
         "<cmd>Trouble diagnostics toggle<cr>",
         desc = "Diagnostics (Trouble)",
       },
@@ -29,8 +29,8 @@ return {
         "<cmd>Trouble loclist toggle<cr>",
         desc = "Location List (Trouble)",
       },
-      {
-        "<leader>xQ",
+     {
+       "<leader>xk",
         "<cmd>Trouble qflist toggle<cr>",
         desc = "Quickfix List (Trouble)",
       },
