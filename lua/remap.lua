@@ -13,8 +13,8 @@ vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
 -- ZZ remap for search
-vim.keymap.set("n", "<C-S-i>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-S-o>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "<C-Up>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<C-Down>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
