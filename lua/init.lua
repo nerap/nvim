@@ -29,7 +29,6 @@ autocmd('TextYankPost', {
         })
     end,
 })
-
 autocmd({ "BufWritePre" }, {
     group = nerap,
     pattern = "*",

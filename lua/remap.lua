@@ -12,11 +12,11 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
--- ZZ remap for search
-vim.keymap.set("n", "<C-Up>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-Down>", "<cmd>cprev<CR>zz")
-vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
-vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+-- Remap Quicklist (Mac)
+vim.keymap.set("n", "∆", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "˚", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "˙", "<cmd>colder<CR>zz")
+vim.keymap.set("n", "¬", "<cmd>cnewer<CR>zz")
 
 -- Void register
 vim.keymap.set("x", "<leader>p", [["_dP]])
@@ -39,7 +39,7 @@ vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 vim.keymap.set("n", "==", "gg<S-v>G")
 
 -- close buffer
-vim.keymap.set("n", "<leader>q", "<cmd>bd<CR>", { desc = "Close Buffer" })
+vim.keymap.set("n", "<leader>q", "<cmd>cclose<CR>", { desc = "Close Buffer" })
 
 -- Make Y behave like C or D
 vim.keymap.set("n", "Y", "y$")
