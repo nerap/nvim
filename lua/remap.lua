@@ -19,7 +19,7 @@ vim.keymap.set("n", "˙", "<cmd>colder<CR>zz")
 vim.keymap.set("n", "¬", "<cmd>cnewer<CR>zz")
 
 -- Void register
-vim.keymap.set("x", "<leader>p", [["_dP]])
+vim.keymap.set("x", "<leader>pa", [["_dP]])
 
 -- Delete without yanking
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
