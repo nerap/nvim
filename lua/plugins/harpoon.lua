@@ -14,7 +14,6 @@ return {
             vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
             vim.keymap.set("n", "<C-h>", function()
-                print(offset)
                 harpoon:list():select(1 + offset) end)
             vim.keymap.set("n", "<C-j>", function() harpoon:list():select(2 + offset) end)
             vim.keymap.set("n", "<C-k>", function() harpoon:list():select(3 + offset) end)

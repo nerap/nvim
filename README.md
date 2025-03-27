@@ -7,3 +7,9 @@
 
 2. Install magick
 ```luarocks --local --lua-version=5.1 install magick```
+
+
+#### TODO
+
+- [ ] Add octo.nvim
+- [ ] Add refactor.nvim

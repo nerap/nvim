@@ -42,6 +42,7 @@ return {
       conform.setup({
         formatters_by_ft = {
           lua = { "stylua" },
+          python = { "black" },
           svelte = { { "prettierd", "prettier" } },
           javascript = { { "prettierd", "prettier" } },
           typescript = { { "prettierd", "prettier" } },
