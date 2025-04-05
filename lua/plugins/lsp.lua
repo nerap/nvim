@@ -35,7 +35,6 @@ return {
           "tflint",
           "dockerls",
           "terraformls",
-          "black",
           "yamlls",
           "bashls",
           "pylsp",
