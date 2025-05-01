@@ -13,7 +13,18 @@ return {
       "saadparwaiz1/cmp_luasnip",
       "j-hui/fidget.nvim",
     },
-
+    opts = {
+      servers = {
+        tsserver = {
+          on_attach = function(client)
+            -- this is important, otherwise tsserver will format ts/js
+            -- files which we *really* don't want.
+            client.server_capabilities.documentFormattingProvider = false
+          end,
+        },
+        biome = {},
+      }
+    },
     config = function()
       local cmp = require('cmp')
       local cmp_lsp = require("cmp_nvim_lsp")
@@ -30,7 +41,7 @@ return {
           "lua_ls",
           "tailwindcss",
           "ts_ls",
-          "eslint",
+          "biome",
           "jsonls",
           "tflint",
           "dockerls",
@@ -54,16 +65,7 @@ return {
             lspconfig.tsserver.setup({
               capabilities = capabilities,
             })
-            lspconfig.eslint.setup({
-              on_attach = function(_, bufnr)
-                vim.api.nvim_create_autocmd("BufWritePre", {
-                  buffer = bufnr,
-                  command = "EslintFixAll",
-                })
-              end,
-              capabilities = capabilities
-            })
-            require("lspconfig").eslint.setup({})
+            require("lspconfig").biome.setup({})
           end,
           ["lua_ls"] = function()
             local lspconfig = require("lspconfig")
@@ -117,75 +119,4 @@ return {
       })
     end
   },
-  {
-    "mrcjkb/rustaceanvim",
-    version = '^5',
-    lazy = false, -- This plugin is already lazy
-    --   config = function()
-    --     vim.g.rustaceanvim = {
-    --       -- Plugin configuration
-    --       tools = {
-    --         autoSetHints = true,
-    --         inlay_hints = {
-    --           enable = true,
-    --           show_parameter_hints = true,
-    --           parameter_hints_prefix = "in: ", -- "<- "
-    --           other_hints_prefix = "out: "     -- "=> "
-    --         }
-    --       },
-    --       -- LSP configuration
-    --       --
-    --       -- REFERENCE:
-    --       -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
-    --       -- https://rust-analyzer.github.io/manual.html#configuration
-    --       -- https://rust-analyzer.github.io/manual.html#features
-    --       --
-    --       -- NOTE: The configuration format is `rust-analyzer.<section>.<property>`.
-    --       --       <section> should be an object.
-    --       --       <property> should be a primitive.
-    --       server = {
-    --         on_attach = function(client, bufnr)
-    --           -- require("lsp-inlayhints").setup({
-    --           --   inlay_hints = { type_hints = { prefix = "=> " } }
-    --           -- })
-    --           vim.lsp.inlay_hint.enable(bufnr)
-    --
-    --           -- require("lsp-inlayhints").on_attach(client, bufnr)
-    --           require("illuminate").on_attach(client)
-    --
-    --           local bufopts = {
-    --             noremap = true,
-    --             silent = true,
-    --             buffer = bufnr
-    --           }
-    --           vim.keymap.set('n', '<leader><leader>rr',
-    --             "<Cmd>RustLsp runnables<CR>", bufopts)
-    --           vim.keymap.set('n', 'K',
-    --             "<Cmd>RustLsp hover actions<CR>", bufopts)
-    --         end,
-    --         settings = {
-    --           -- rust-analyzer language server configuration
-    --           ['rust-analyzer'] = {
-    --             assist = {
-    --               importEnforceGranularity = true,
-    --               importPrefix = "create"
-    --             },
-    --             cargo = { allFeatures = true },
-    --             checkOnSave = {
-    --               -- default: `cargo check`
-    --               command = "clippy",
-    --               allFeatures = true
-    --             },
-    --             inlayHints = {
-    --               lifetimeElisionHints = {
-    --                 enable = true,
-    --                 useParameterNames = true
-    --               }
-    --             }
-    --           }
-    --         }
-    --       }
-    --     }
-    --   end
-  }
 }
