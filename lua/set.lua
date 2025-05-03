@@ -10,7 +10,8 @@ vim.opt.expandtab = true
 
 vim.opt.smartindent = true
 vim.opt.autoindent = true
-
+vim.opt.spell = true
+vim.opt.spelllang = "en_us"  -- Set your preferred language
 vim.opt.wrap = false
 
 vim.opt.swapfile = false
