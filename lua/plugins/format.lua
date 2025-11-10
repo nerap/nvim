@@ -8,7 +8,7 @@ return {
       conform.setup({
         notify_on_error = false,
         format_on_save = function(bufnr)
-          local lsp_format_opt = "never"
+          local lsp_format_opt = "fallback"
           return {
             timeout_ms = 500,
             lsp_format = lsp_format_opt,
@@ -17,15 +17,15 @@ return {
         formatters_by_ft = {
           lua = { "stylua" },
           python = { "black" },
-          svelte = { { "biome", "biome-organize-imports" } },
-          json = { { "biome", "biome-organize-imports" } },
-          javascript = { "biome", "biome-organize-imports" },
-          javascriptreact = { "biome", "biome-organize-imports" },
-          typescript = { "biome", "biome-organize-imports" },
-          typescriptreact = { "biome", "biome-organize-imports" },
-          graphql = { { "biome", "biome-organize-imports" } },
+          svelte = { "biome" },
+          json = { "biome" },
+          javascript = { "biome" },
+          javascriptreact = { "biome"},
+          typescript = { "biome"},
+          typescriptreact = { "biome"},
+          graphql = { { "biome"} },
           java = { "google-java-format" },
-          markdown = { { "biome", "biome-organize-imports" } },
+          markdown = { { "biome"} },
           erb = { "htmlbeautifier" },
           html = { "htmlbeautifier" },
           bash = { "beautysh" },
@@ -33,8 +33,8 @@ return {
           rust = { "rustfmt" },
           yaml = { "yamlfix" },
           toml = { "taplo" },
-          css = { { "prettierd", "prettier" } },
-          scss = { { "prettierd", "prettier" } },
+          css = { { "biome" } },
+          scss = { { "biome"} },
           sh = { { "shellcheck" } },
           sql = { "sqlformat" },
         },
@@ -50,10 +50,8 @@ return {
 
       vim.keymap.set("n", "<leader>f", function()
         conform.format({
-          lsp_fallback = true,
-          async = false,
+          async = true,
           lsp_format = "never",
-          timeout_ms = 1000,
         })
       end, { desc = "Format file" })
     end,

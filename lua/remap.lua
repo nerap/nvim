@@ -62,5 +62,13 @@ vim.keymap.set("n", "<leader>vs", "<cmd>:vsplit<CR><C-w>l")
 vim.keymap.set("n", "<leader>hs", "<cmd>:split<CR><C-w>j")
 
 vim.keymap.set("n", "<leader><leader>", function()
-    vim.cmd("so")
+  vim.cmd("so")
 end)
+
+--  Cp current path to OS clipboard
+vim.keymap.set('n', '<leader>cp', function()
+  local filepath = vim.fn.expand('%')
+  vim.fn.setreg('"', filepath)
+  vim.fn.setreg('+', filepath)
+  print('Copied to clipboard: ' .. filepath)
+end, { desc = 'Copy file path to clipboard' })
