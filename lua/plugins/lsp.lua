@@ -50,6 +50,7 @@ return {
           "bashls",
           "pylsp",
           "marksman",
+          "rust_analyzer",
         },
         handlers = {
           function(server_name) -- default handler (optional)
@@ -76,6 +77,22 @@ return {
                   diagnostics = {
                     globals = { "vim", "it", "describe", "before_each", "after_each" },
                   }
+                }
+              }
+            }
+          end,
+          ["rust_analyzer"] = function()
+            local lspconfig = require("lspconfig")
+            lspconfig.rust_analyzer.setup {
+              capabilities = capabilities,
+              settings = {
+                ["rust-analyzer"] = {
+                  checkOnSave = {
+                    command = "clippy",
+                  },
+                  cargo = {
+                    allFeatures = true,
+                  },
                 }
               }
             }
